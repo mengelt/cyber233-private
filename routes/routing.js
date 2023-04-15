@@ -104,6 +104,20 @@ apiRoutes.route("/token").post(async function (req, res) {
 
 });
 
+
+apiRoutes.route("/exchangeTokensForIdentity").post(async function (req, res) {
+
+  const tokens = req.body.tokens;
+  const query = { token: { $in: tokens } };
+
+  const db = req.app.locals.db;
+  const collection = db.collection('tokens');
+
+  const userDocuments = await collection.find(query).toArray();
+  res.status(200).json(userDocuments);
+
+})
+
 /* receives email address and exchanges it identity's token */
 apiRoutes.route("/exchange").post(async function (req, res) {
 
@@ -126,11 +140,6 @@ apiRoutes.route("/exchange").post(async function (req, res) {
     return res.status(401).json({ error: 'Missing document' });
   }
 
-
-  // https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=755882275#Random_UUID_probability_of_duplicates
-  // https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)
-
-  console.info('exchanged token', document.token)
 
   res.status(200).json({ token: document.token });
 
