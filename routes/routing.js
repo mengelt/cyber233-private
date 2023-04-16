@@ -56,7 +56,8 @@ apiRoutes.route("/login").post(async function (req, res) {
     console.info(`user document found for ${email}`)
     let user = {
       email: document.email,
-      name: document.name
+      name: document.name,
+      avatar: document.avatar
     };
 
     res.status(200).json({ user });    
@@ -167,9 +168,6 @@ apiRoutes.route("/friends").post(async function (req, res) {
     return res.status(401).json({ error: 'Missing document' });
   }
 
-
-  // https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=755882275#Random_UUID_probability_of_duplicates
-  // https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)
 
   console.info('friends found', document.friends)
 
