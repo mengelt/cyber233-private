@@ -24,7 +24,7 @@ app.use(function (err, _req, res) {
 async function startServer() {
   try {
 
-    console.log('\nStarting up BerkBook Tokeninator API');
+    console.log('\nStarting up OneSpace Tokeninator API');
 
     // Connect to MongoDB
     const client = await MongoClient.connect(MONGO_URI, {
